@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="header">
+  <meta charset="UTF-8">
+  <title>Spring Boot</title>
+  <link rel="stylesheet" href="/webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+  <script src="/webjars/bootstrap/5.1.3/js/bootstrap.bundle.js"></script>
+</head>
+<body>
+<!---Started Nav--->
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand" th:href="@{/home}">Spring Boot</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" th:href="@{/home}">Home</a>
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" th:href="@{/studenthome}">Student</a></li>
+            <li><a class="dropdown-item" th:href="@{/teacher-page}">Teacher</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a sec:authorize="isAuthenticated()" sec:authentication="name" class="nav-link disabled text-white justify-content-end"></a>
+        </li>
+      </ul>
+      <!--todo if the user is authenticated-->
+      <form class="d-flex text-white" role="search">
+          <button sec:authorize="isAuthenticated()" class="btn btn-sm btn-success" >
+            <a style="text-decoration: none" class="text-white" th:href="@{/logout}">Logout</a>
+          </button>
+        <button sec:authorize="!isAuthenticated()" class="btn btn-sm btn-success" >
+          <a style="text-decoration: none" class="text-white" th:href="@{/login}">Login</a>
+        </button>
+      </form>
+    </div>
+  </div>
+</nav>
+<!---End Nav--->
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+                xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="layout::header"></head>
+<body>
+
+     <nav th:replace="layout::navbar"></nav>
+      <div class="container pt-5">
+        <h3 class="text-center">Student Management System</h3>
+          <p class="btn btn-sm btn-success">
+              <a style="text-decoration: none" class="text-white" th:href="@{/create-student}">Add Student</a>
+          </p>
+          <br> <br>
+        <div class="row">
+          <div class="col-md-12">
+                <table class="table table-bordered table-striped">
+                 <thead class="table-dark">
+                 <tr>
+                   <th>ID</th>
+                   <th>Name</th>
+                   <th>Email</th>
+                   <th>Major</th>
+                     <th>Major</th>
+                   <th>Action</th>
+                 </tr>
+                 </thead>
+                  <tbody>
+                      <tr th:each="students: ${student}">
+                        <td th:text="${students.id}"></td>
+                        <td th:text="${students.fullName}"></td>
+                        <td th:text="${students.email}"></td>
+                        <td th:text="${students.major}"></td>
+                          <td th:text="${students.nationality}"></td>
+                        <td>
+                          <div class="btn btn-group-sm" sec:authorize="hasAuthority('ADMIN')" role="group">
+                            <a class="btn btn-sm btn-info" th:href="@{/edit/{id}(id=${students.id})}">Edit</a>
+                            <a onclick="return confirm('Are you sure you want to delete?')" class="btn btn-sm btn-danger" th:href="@{/delete/{id}(id=${students.id})}">Delete</a>
+                          </div>
+                        </td>
+                      </tr>
+                  </tbody>
+                </table>
+              </div>
+        </div>
+      </div>
+
+</body>
+</html>
